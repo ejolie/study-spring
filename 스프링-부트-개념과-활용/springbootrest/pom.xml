@@ -37,7 +37,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframeworkd.boot</groupId>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 	</dependencies>
