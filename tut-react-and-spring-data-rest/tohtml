@@ -1,0 +1,13 @@
+#!/bin/bash
+
+asciidoctor -a linkcss -s README.adoc
+
+asciidoctor -a linkcss -s basic/README.adoc
+
+asciidoctor -a linkcss -s hypermedia/README.adoc
+
+asciidoctor -a linkcss -s conditional/README.adoc
+
+asciidoctor -a linkcss -s events/README.adoc
+
+asciidoctor -a linkcss -s security/README.adoc

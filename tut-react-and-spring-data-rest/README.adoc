@@ -1,0 +1,22 @@
+:doctype: book
+:tags: [rest,hateoas,data,react,security]
+:projects: [spring-data-rest,spring-data-jpa,spring-hateoas,spring-security,spring-boot,]
+:toc: left
+:icons: font
+:source-highlighter: prettify
+:image-width: 500
+
+= React.js and Spring Data REST
+
+This tutorial shows a collection of apps that use Spring Data REST and its powerful backend functionality combined with React's sophisticated features to build an easy-to-grok UI.
+
+* https://www.youtube.com/watch?v=TgCr7v9tdKM[Spring Data REST] provides a fast way to build hypermedia-powered repositories.
+* https://facebook.github.io/react/index.html[React] is Facebook's solution to efficient, fast, and easy-to-use views in the land of JavaScript.
+
+include::basic/README.adoc[leveloffset=+1]
+include::hypermedia/README.adoc[leveloffset=+1]
+include::conditional/README.adoc[leveloffset=+1]
+include::events/README.adoc[leveloffset=+1]
+include::security/README.adoc[leveloffset=+1]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
