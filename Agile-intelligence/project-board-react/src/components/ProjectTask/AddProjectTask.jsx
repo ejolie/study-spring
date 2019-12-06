@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -10,6 +10,7 @@ function AddProjectTask({ addProjectTask, history }) {
   const [summary, setSummary] = useState('');
   const [acceptanceCriteria, setAcceptanceCriteria] = useState('');
   const [status, setStatus] = useState('');
+  const [errors, setErrors] = useState({});
 
   const onSummaryChange = (e) => {
     setSummary(e.target.value);
@@ -41,6 +42,16 @@ function AddProjectTask({ addProjectTask, history }) {
     addProjectTask(newProjectTask, history);
   };
 
+  /*
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      setErrors(nextProps.errors);
+    }
+  }
+  */
+
+  useEffect(() => {}, []);
+
   return (
     <div className='addProjectTask'>
       <div className='container'>
@@ -54,12 +65,18 @@ function AddProjectTask({ addProjectTask, history }) {
               <div className='form-group'>
                 <input
                   type='text'
-                  className='form-control form-control-lg'
+                  className={classnames('form-control form-control-lg', {
+                    'is-invalid': errors.summary,
+                  })}
                   name='summary'
                   placeholder='Project Task summary'
                   value={summary}
                   onChange={onSummaryChange}
                 />
+                {/* {errors.summary && (
+                      <div className="invalid-feedback">{errors.summary}</div>
+                    )} 
+                */}
               </div>
               <div className='form-group'>
                 <textarea
