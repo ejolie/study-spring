@@ -19,7 +19,7 @@ function App() {
           <Route exact path='/addProjectTask' component={AddProjectTask} />
           <Route
             exact
-            path='/updateProjectTask'
+            path='/updateProjectTask:pt_id'
             component={UpdateProjectTask}
           />
         </div>

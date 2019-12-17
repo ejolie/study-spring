@@ -12,25 +12,25 @@ function AddProjectTask({ addProjectTask, history }) {
   const [status, setStatus] = useState('');
   const [errors, setErrors] = useState({});
 
-  const onSummaryChange = (e) => {
+  const onSummaryChange = e => {
     setSummary(e.target.value);
   };
 
-  const onAcceptanceCriteriaChange = (e) => {
+  const onAcceptanceCriteriaChange = e => {
     setAcceptanceCriteria(e.target.value);
   };
 
-  const onStatusChange = (e) => {
+  const onStatusChange = e => {
     setStatus(e.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
 
     const newProjectTask = {
       summary,
       acceptanceCriteria,
-      status,
+      status
     };
 
     console.log(newProjectTask);
@@ -60,13 +60,13 @@ function AddProjectTask({ addProjectTask, history }) {
             <Link to='/' className='btn btn-light'>
               Back to Board
             </Link>
-            <h4 className='display-4 text-center'>Add /Update Project Task</h4>
+            <h4 className='display-4 text-center'>Add Project Task</h4>
             <form onSubmit={onSubmit}>
               <div className='form-group'>
                 <input
                   type='text'
                   className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.summary,
+                    'is-invalid': errors.summary
                   })}
                   name='summary'
                   placeholder='Project Task summary'
@@ -111,11 +111,11 @@ function AddProjectTask({ addProjectTask, history }) {
 
 AddProjectTask.propTypes = {
   AddProjectTask: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  errors: state.errors,
+const mapStateToProps = state => ({
+  errors: state.errors
 });
 
 export default connect(mapStateToProps, { addProjectTask })(AddProjectTask);
