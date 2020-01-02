@@ -3,7 +3,6 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,7 @@ public class MemberService {
      */
     @Transactional
     public Long join(Member member) {
-        validateDuplicateMember(member);
+        validateDuplicateMember(member);    // 중복 회원 검증
         memberRepository.save(member);
         return member.getId();
     }
@@ -44,7 +43,7 @@ public class MemberService {
     /*
         회원 조회
      */
-    // @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)  // 읽기 작업에는 되도록 readOnly = true를 넣어준다.
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
