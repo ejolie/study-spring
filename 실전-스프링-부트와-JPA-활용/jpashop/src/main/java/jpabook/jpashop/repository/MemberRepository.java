@@ -11,10 +11,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberRepository {
 
+    // @PersistenceContext
+    // -> @Autowired (스프링  부트 JPA가 가능하게 해줌)
+    // -> final + @RequiredArgsConstructor
     private final EntityManager em;
 
+    // public MemberRepository(EntityManager em) {
+    //      this.em = em;
+    // }
+
     public void save(Member member) {
-        em.persist(member);
+        em.persist(member); // SQL insert X
     }
 
     public Member findOne(Long id) {

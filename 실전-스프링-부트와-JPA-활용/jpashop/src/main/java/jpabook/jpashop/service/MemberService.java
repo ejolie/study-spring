@@ -11,6 +11,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+// @RequiredArgsConstructor
+// final 필드만 갖고 생성자를 만들어주는 lombok annotation
 public class MemberService {
 
     // 필드 인젝션
@@ -20,6 +22,12 @@ public class MemberService {
     // 생성자 인젝션 (권장)
     // @Autowired
 //    public MemberService(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+
+    // Setter 인젝션
+//    @Autowired
+//    public void setMemberRepository(MemberRepository memberRepository) {
 //        this.memberRepository = memberRepository;
 //    }
 
