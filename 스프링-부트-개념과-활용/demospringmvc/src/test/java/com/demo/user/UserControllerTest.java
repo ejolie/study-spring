@@ -8,13 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.print.attribute.standard.Media;
-
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -31,16 +28,14 @@ public class UserControllerTest {
     }
 
     @Test
-    public void createUser_JSON() {
-        String userJson = "";
+    public void createUser_JSON() throws Exception {
+        String userJson = "{\"username\":\"keesun\", \"password\":\"123\"}";
         mockMvc.perform(post("/users/create")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8) // MediaType.APPLICATION_XML (XML Message Converter 의존성 추가 시 사용 가능)
                 .content(userJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username",
-                        is(equalTo("keesun"))))
-                .andExpect(jsonPath("$.password",
-                        is(equalTo("123"))));
+                .andExpect(jsonPath("$.username").value("keesun"))
+                .andExpect(jsonPath("$.password").value("123"));
     }
 }
