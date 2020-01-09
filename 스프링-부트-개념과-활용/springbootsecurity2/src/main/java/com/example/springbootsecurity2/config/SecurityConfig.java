@@ -1,4 +1,4 @@
-package com.example.springbootsecurity.config;
+package com.example.springbootsecurity2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,15 +14,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/", "/hello").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/", "/hello").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .and()
+                .and()
                 .httpBasic();
     }
 
-    // setPassword() 할 때 encode() 한 뒤 DB에 저장해야 함
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

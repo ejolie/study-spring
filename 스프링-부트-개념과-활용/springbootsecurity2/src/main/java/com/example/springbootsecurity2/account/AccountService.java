@@ -1,4 +1,4 @@
-package com.example.springbootsecurity.account;
+package com.example.springbootsecurity2.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +33,7 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Account> byUsername = accountRepository.findByUsername(username);
+        Optional<Account> byUsername = accountRepository.findByUserName(username);
         Account account = byUsername.orElseThrow(() -> new UsernameNotFoundException(username));
         return new User(account.getUsername(), account.getPassword(), authorities());
     }

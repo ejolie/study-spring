@@ -1,7 +1,7 @@
-package com.example.springbootsecurity;
+package com.example.springbootsecurity2;
 
-import com.example.springbootsecurity.account.Account;
-import com.example.springbootsecurity.account.AccountService;
+import com.example.springbootsecurity2.account.Account;
+import com.example.springbootsecurity2.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,7 +15,7 @@ public class AccountRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Account keesun = accountService.createAccount("keesun", "1234");
-        System.out.println("username: " + keesun.getUsername() + " password: " + keesun.getPassword());
+        Account root = accountService.createAccount("root", "1234");
+        System.out.println("username: " + root.getUsername() + ", password: " + root.getPassword());
     }
 }

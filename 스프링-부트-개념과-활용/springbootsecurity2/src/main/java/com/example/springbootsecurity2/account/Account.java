@@ -1,4 +1,4 @@
-package com.example.springbootsecurity.account;
+package com.example.springbootsecurity2.account;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,9 @@ public class Account {
     @Id
     @GeneratedValue
     private Long id;
+
     private String username;
+
     private String password;
 
     public Long getId() {
