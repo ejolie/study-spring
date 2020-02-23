@@ -1,2 +1,2 @@
 # spring-boot-practice
-Study Spring Boot
+🌱 Study Spring Boot
