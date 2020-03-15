@@ -5,41 +5,31 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
-  <context-param>
-    <param-name>contextClass</param-name>
-    <param-value>org.springframework.context.annotation.AnnotationConfigApplicationContext</param-value>
-  </context-param>
+<!--  <context-param>-->
+<!--    <param-name>contextClass</param-name>-->
+<!--    <param-value>org.springframework.context.annotation.AnnotationConfigApplicationContext</param-value>-->
+<!--  </context-param>-->
 
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>org.example.AppConfig</param-value>
-  </context-param>
-
-  <filter>
-    <filter-name>myFilter</filter-name>
-    <filter-class>org.example.MyFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>myFilter</filter-name>
-    <servlet-name>hello</servlet-name>
-  </filter-mapping>
+<!--  <context-param>-->
+<!--    <param-name>contextConfigLocation</param-name>-->
+<!--    <param-value>org.example.AppConfig</param-value>-->
+<!--  </context-param>-->
   
-<!--  <listener>-->
-<!--    <listener-class>org.example.MyListener</listener-class>-->
-<!--  </listener>-->
-  
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
   <servlet>
-    <servlet-name>hello</servlet-name>
-    <servlet-class>org.example.HelloServlet</servlet-class>
+    <servlet-name>app</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.context.annotation.AnnotationConfigApplicationContext</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>org.example.WebConfig</param-value>
+    </init-param>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>hello</servlet-name>
-    <url-pattern>/hello</url-pattern>
+    <servlet-name>app</servlet-name>
+    <url-pattern>/app/*</url-pattern>
   </servlet-mapping>
 </web-app>

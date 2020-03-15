@@ -14,11 +14,16 @@ import java.io.IOException;
 public class HelloServlet extends HttpServlet {
 
     @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet Init");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ApplicationContext context = (ApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         HelloService helloService = context.getBean(HelloService.class);
 
-        System.out.println("doGet");
+        System.out.println("Servlet doGet");
         resp.getWriter().print("<html>");
         resp.getWriter().print("<head></head>");
         resp.getWriter().print("<body>");
@@ -29,11 +34,6 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        System.out.println("destroy");
-    }
-
-    @Override
-    public void init() throws ServletException {
-        System.out.println("init");
+        System.out.println("Servlet Destroy");
     }
 }
