@@ -9,8 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
@@ -21,16 +20,11 @@ class SampleControllerTest {
 
     @Test
     public void helloTest() throws Exception {
-        mockMvc.perform(get("/hello"))
+        mockMvc.perform(get("/hello/keesun"))
                 .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
-
-        mockMvc.perform(put("/hello"))
-                .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
-
-        mockMvc.perform(post("/hello"))
-                .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isOk())
+                .andExpect(content().string("hello keesun"))
+                .andExpect(handler().handlerType(SampleController.class))
+                .andExpect(handler().methodName("helloKeesun"));
     }
 }
