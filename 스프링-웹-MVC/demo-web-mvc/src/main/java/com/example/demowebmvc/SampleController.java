@@ -12,4 +12,10 @@ public class SampleController {
     public String hello() {
         return "hello";
     }
+
+    @PostMapping(value = "/hello", params = "name=keesun")
+    @ResponseBody
+    public String helloPost() {
+        return "hello";
+    }
 }
