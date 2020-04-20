@@ -6,6 +6,10 @@ import org.springframework.web.servlet.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/*
+ * HandlerMapping: BeanNameUrlHandlerMapping
+ * HandlerAdapter: SimpleControllerHandlerAdapter
+ */
 @org.springframework.stereotype.Controller("/simple")
 public class SimpleController implements Controller {
 
