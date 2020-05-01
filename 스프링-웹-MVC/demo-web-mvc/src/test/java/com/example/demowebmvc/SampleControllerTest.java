@@ -20,6 +20,14 @@ class SampleControllerTest {
 
     @Test
     public void getEvent() throws Exception {
+        mockMvc.perform(get("/events/form"))
+                .andDo(print())
+                .andExpect(view().name("/events/form"))
+                .andExpect(model().attributeExists("event"));
+    }
+
+    @Test
+    public void postEvent() throws Exception {
         mockMvc.perform(post("/events")
                     .param("name", "keesun")
                     .param("limit", "20"))
