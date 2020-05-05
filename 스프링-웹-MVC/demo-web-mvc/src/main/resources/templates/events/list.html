@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Event List</title>
+</head>
+<body>
+    <a th:href="@{/events/form}">Create New Event</a>
+    <div th:unless="${#lists.isEmpty(eventList)}">
+        <ul th:each="event: ${eventList}">
+            <li th:text="${event.Name}">Event Name</li>
+        </ul>
+    </div>
+</body>
+</html>
