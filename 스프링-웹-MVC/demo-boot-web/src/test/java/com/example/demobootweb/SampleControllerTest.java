@@ -9,8 +9,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.oxm.Marshaller;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,6 +34,9 @@ class SampleControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    Marshaller marshaller;
 
     @Test
     public void hello() throws Exception {
@@ -63,7 +71,8 @@ class SampleControllerTest {
     public void jsonMessage() throws Exception {
         Person person = new Person();
         person.setId(2019L);
-        person.setName("kessun");
+        person.setName("keesun");
+
         String jsonString = objectMapper.writeValueAsString(person);
 
         mockMvc.perform(get("/jsonMessage")
@@ -71,6 +80,29 @@ class SampleControllerTest {
                     .accept(MediaType.APPLICATION_JSON_VALUE)
                     .content(jsonString))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(2019))
+                .andExpect(jsonPath("$.name").value("keesun"));
+    }
+
+    @Test
+    public void xmlMessage() throws Exception {
+        Person person = new Person();
+        person.setId(2019L);
+        person.setName("keesun");
+
+        StringWriter stringWriter = new StringWriter();
+        Result result = new StreamResult(stringWriter);
+        marshaller.marshal(person, result);
+        String xmlString = stringWriter.toString();
+
+        mockMvc.perform(get("/jsonMessage")
+                    .contentType(MediaType.APPLICATION_XML_VALUE)
+                    .accept(MediaType.APPLICATION_XML_VALUE)
+                    .content(xmlString))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(xpath("person/name").string("keesun"))
+                .andExpect(xpath("person/id").string("2019"));
     }
 }
