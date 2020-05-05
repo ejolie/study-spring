@@ -30,4 +30,9 @@ public class SampleController {
     public String message(@RequestBody String body) {
         return body;
     }
+
+    @GetMapping("/jsonMessage")
+    public Person jsonMessage(@RequestBody Person person) {
+        return person;
+    }
 }
