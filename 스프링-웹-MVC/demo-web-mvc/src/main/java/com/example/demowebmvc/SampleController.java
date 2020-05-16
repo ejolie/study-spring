@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,11 @@ public class SampleController {
     }
 
     @GetMapping("/events/list")
-    public String getEvents(Model model) {
+    public String getEvents(Model model, @SessionAttribute LocalDateTime visitTime) {
+        // cf. @SessionAttribute 사용 안하고 HttpSession 이용하는 방법
+        // LocalDateTime visitTime = (LocalDateTime) httpSession.getAttribute("visitTime");
+        System.out.println(visitTime);
+
         // DB read
         Event event = new Event();
         event.setName("spring");
