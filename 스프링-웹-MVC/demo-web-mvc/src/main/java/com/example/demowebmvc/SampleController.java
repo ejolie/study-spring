@@ -48,13 +48,12 @@ public class SampleController {
             return "events/form-limit";
         }
         sessionStatus.setComplete();
-        redirectAttributes.addAttribute("name", event.getName());
-        redirectAttributes.addAttribute("limit", event.getLimit());
+        redirectAttributes.addFlashAttribute("newEvent", event);
         return "redirect:/events/list";
     }
 
     @GetMapping("/events/list")
-    public String getEvents(@ModelAttribute Event newEvent,
+    public String getEvents(/* @ModelAttribute Event newEvent, */
                             Model model,
                             @SessionAttribute LocalDateTime visitTime) {
         // cf. @SessionAttribute 사용 안하고 HttpSession 이용하는 방법
@@ -65,6 +64,9 @@ public class SampleController {
         Event event = new Event();
         event.setName("spring");
         event.setLimit(10);
+
+        // Flash Attribute
+        Event newEvent = (Event) model.asMap().get("newEvent");
 
         List<Event> eventList = new ArrayList<>();
         eventList.add(event);
