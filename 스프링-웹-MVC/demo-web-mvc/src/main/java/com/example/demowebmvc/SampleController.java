@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,16 +42,21 @@ public class SampleController {
     @PostMapping("/events/form/limit")
     public String eventsFormLimitSubmit(@ModelAttribute Event event,
                                         BindingResult bindingResult,
-                                        SessionStatus sessionStatus) {
+                                        SessionStatus sessionStatus,
+                                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "events/form-limit";
         }
         sessionStatus.setComplete();
+        redirectAttributes.addAttribute("name", event.getName());
+        redirectAttributes.addAttribute("limit", event.getLimit());
         return "redirect:/events/list";
     }
 
     @GetMapping("/events/list")
-    public String getEvents(Model model, @SessionAttribute LocalDateTime visitTime) {
+    public String getEvents(@ModelAttribute Event newEvent,
+                            Model model,
+                            @SessionAttribute LocalDateTime visitTime) {
         // cf. @SessionAttribute 사용 안하고 HttpSession 이용하는 방법
         // LocalDateTime visitTime = (LocalDateTime) httpSession.getAttribute("visitTime");
         System.out.println(visitTime);
@@ -62,6 +68,7 @@ public class SampleController {
 
         List<Event> eventList = new ArrayList<>();
         eventList.add(event);
+        eventList.add(newEvent);
 
         model.addAttribute(eventList);
         return "/events/list";
