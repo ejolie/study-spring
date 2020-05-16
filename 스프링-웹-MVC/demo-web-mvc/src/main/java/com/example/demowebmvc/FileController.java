@@ -1,5 +1,6 @@
 package com.example.demowebmvc;
 
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -41,7 +42,7 @@ public class FileController {
         File file = resource.getFile();
 
         Tika tika = new Tika();
-        String mediaType = tika.detact(file);
+        String mediaType = tika.detect(file);
 
         return ResponseEntity
                 .ok()
