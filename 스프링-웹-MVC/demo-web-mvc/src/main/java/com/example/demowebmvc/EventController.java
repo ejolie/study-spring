@@ -19,6 +19,19 @@ import java.util.List;
 @SessionAttributes("event")
 public class EventController {
 
+    // 특정 예외가 발생한 요청을 처리하는 핸들러를 정의한다.
+    @ExceptionHandler
+    public String eventErrorHandler(EventException exception, Model model) {
+        model.addAttribute("message", "event error");
+        return "error";
+    }
+
+    @ExceptionHandler
+    public String runtimeErrorHandler(RuntimeException exception, Model model) {
+        model.addAttribute("message", "runtime error");
+        return "error";
+    }
+
     @Autowired
     EventValidator eventValidator;
 
@@ -45,8 +58,9 @@ public class EventController {
 
     @GetMapping("/events/form/name")
     public String eventsFormName(Model model) {
-        model.addAttribute("event", new Event());
-        return "events/form-name";
+        throw new EventException();
+//        model.addAttribute("event", new Event());
+//        return "events/form-name";
     }
 
     @PostMapping("/events/form/name")

@@ -11,6 +11,11 @@ import javax.validation.Valid;
 @RequestMapping("/api/events")
 public class EventApi {
 
+    @ExceptionHandler
+    public ResponseEntity errorHandler() {
+        return ResponseEntity.badRequest().body("can't create event as ...");
+    }
+
     /**
      *  BindingResult
      *  - 사용 O : status 200, 에러 메시지 출력
