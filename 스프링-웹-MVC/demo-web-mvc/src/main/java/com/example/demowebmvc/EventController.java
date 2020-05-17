@@ -10,11 +10,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @SessionAttributes("event")
 public class EventController {
+
+    // 모든 View에서 해당 Model 정보를 사용한다면 다음과 같이 정의할 수 있다.
+    // 방법 1. 하나의 메서드에서 여러 개 추가 가능함
+    @ModelAttribute
+    public void categories(Model model) {
+        model.addAttribute("categories", Arrays.asList("study", "seminar", "hobby", "social"));
+    }
+
+    // 방법 2.
+    @ModelAttribute("anotherCategories")
+    public List<String> anotherCategories(Model model) {
+        return Arrays.asList("study", "seminar", "hobby", "social");
+    }
 
     @GetMapping("/events/form/name")
     public String eventsFormName(Model model) {

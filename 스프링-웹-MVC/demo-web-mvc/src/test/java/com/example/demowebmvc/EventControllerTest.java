@@ -64,6 +64,7 @@ class EventControllerTest {
                     .flashAttr("newEvent", newEvent))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("categories"))
                 .andExpect(xpath("//p").nodeCount(2));
     }
 }
