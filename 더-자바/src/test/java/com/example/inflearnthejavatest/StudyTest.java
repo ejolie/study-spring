@@ -4,13 +4,19 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * - @DisplayNameGeneration
+ * - @DisplayName: 권장
+ */
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
     /**
      * JUnit4: 클래스와 메서드 모두 public 이었어야 함
-     * JUnit5: 상관 없음, 자바의 reflection 활용하여 default이나 private에도 접근 가능
+     * JUnit5: 상관 없음, 자바의 reflection 을 활용하여 default 이나 private 에도 접근 가능
      */
     @Test
-    void create() {
+    @DisplayName("스터디 만들기 😀")
+    void create_new_study() {
         Study study = new Study();
         assertNotNull(study);
         System.out.println("create");
@@ -18,7 +24,7 @@ class StudyTest {
 
     @Test
     @Disabled
-    void create1() {
+    void create_new_study_again() {
         Study study = new Study();
         assertNotNull(study);
         System.out.println("create1");
