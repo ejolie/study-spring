@@ -51,7 +51,8 @@ public class MemberService {
     /*
         회원 조회
      */
-    // @Transactional(readOnly = true)  // 읽기 작업에는 되도록 readOnly = true를 넣어준다.
+    // 읽기 작업에는 되도록 readOnly = true를 넣어준다.
+    // @Transactional(readOnly = true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -59,5 +60,15 @@ public class MemberService {
     // @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
+    }
+
+    /**
+     * - 수정할 땐 변경 감지 사용을 권장한다.
+     * - 변경된 Member를 반환할 수도 있겠지만 Command와 Query를 되도록 분리한다.
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
     }
 }
