@@ -5,6 +5,8 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     /**
      * V1. Entity를 직접 노출
@@ -70,6 +73,7 @@ public class OrderSimpleApiController {
     /**
      * V3. 엔티티를 DTO로 변환 + Fetch Join으로 성능 최적화
      * - 쿼리 1번 실행
+     * -> 대부분의 성능 이슈가 해결된다.
      */
     @GetMapping("/api/v3/simple-orders")
     public List<SimpleOrderDto> ordersV3() {
@@ -80,6 +84,14 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
 
         return result;
+    }
+
+    /**
+     * V4. JPA에서 DTO로 바로 조회
+     */
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4() {
+        return orderSimpleQueryRepository.findOrderDtos();
     }
 
     @Data
@@ -98,5 +110,4 @@ public class OrderSimpleApiController {
             address = order.getDelivery().getAddress(); // LAZY 초기화
         }
     }
-
 }
