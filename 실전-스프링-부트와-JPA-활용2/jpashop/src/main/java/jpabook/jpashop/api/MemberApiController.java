@@ -29,7 +29,19 @@ public class MemberApiController {
 
     @GetMapping("/api/v2/members")
     public Result memberV2() {
+        /**
+         * N + 1 문제
+         * - 쿼리가 총 1 + N + N번 실행된다. (v1와 쿼리수 결과는 같다.)
+         *  - ORDER 조회 1번 -> 조회 결과 수 N
+         *  - ORDER -> MEMBER 지연 로딩 조회 N
+         *  - ORDER -> DELIVERY 지연 로딩 조회 N
+         *
+         * -> 즉, ORDER 조회 결과가 2개면 최악의 경우 1 + 2 + 2번 실행된다.
+         *  - 지연 로딩은 기본적으로 N번이긴 한데 DB 쿼리로 조회하는 것이 아니라
+         *    영속성 컨텍스트에서 조회하므로, 이미 조회된 경우 쿼리를 생략한다.
+         */
         List<Member> findMembers = memberService.findMembers();
+
         List<MemberDto> memberDtos = findMembers.stream()
                 .map(m -> new MemberDto(m.getName()))
                 .collect(Collectors.toList());
