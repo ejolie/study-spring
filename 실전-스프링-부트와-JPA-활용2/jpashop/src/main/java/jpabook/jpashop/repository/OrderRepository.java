@@ -28,11 +28,11 @@ public class OrderRepository {
     }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        //language=JPAQL
+        // language=JPAQL
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;
 
-        //주문 상태 검색
+        // 주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
             if (isFirstCondition) {
                 jpql += " where";
@@ -43,7 +43,7 @@ public class OrderRepository {
             jpql += " o.status = :status";
         }
 
-        //회원 이름 검색
+        // 회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             if (isFirstCondition) {
                 jpql += " where";
@@ -76,14 +76,14 @@ public class OrderRepository {
 
         List<Predicate> criteria = new ArrayList<>();
 
-        //주문 상태 검색
+        // 주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
             Predicate status = cb.equal(o.get("status"),
                     orderSearch.getOrderStatus());
             criteria.add(status);
         }
 
-        //회원 이름 검색
+        // 회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             Predicate name =
                     cb.like(m.<String>get("name"), "%" +
@@ -103,6 +103,17 @@ public class OrderRepository {
                         "select o from Order o" +
                         " join fetch o.member m" +
                         " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
+    // V3
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class
         ).getResultList();
     }
 }

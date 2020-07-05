@@ -43,6 +43,27 @@ public class OrderApiController {
                     .collect(Collectors.toList());
     }
 
+    /**
+     * V2 -> V3 Fetch Join
+     * - 장점: 쿼리 한 번으로 튜닝됨
+     * - 단점
+     *   - 1개만 사용 가능, 데이터 뻥튀기
+     *   - 페이징 불가능
+     *   ex) 10000개를 다 Fetch Join해서 메모리에 둔 다음 페이징처리
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+
+        for (Order order : orders) {
+            System.out.println("order ref=" + order + " id=" + order.getId());
+        }
+
+        return orders.stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Getter
     static class OrderDto {
         private Long orderId;
