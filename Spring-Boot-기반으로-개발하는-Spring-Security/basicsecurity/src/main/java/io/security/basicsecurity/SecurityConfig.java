@@ -15,6 +15,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated();
         http
-                .formLogin();
+                .formLogin()
+//            .loginPage("/loginPage")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login")
+                .usernameParameter("userId")
+                .passwordParameter("userPwd")
+                .loginProcessingUrl("/login_proc")
+                .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                    System.out.println("authentication : " + authentication.getName());
+                    httpServletResponse.sendRedirect("/");
+                })
+                .failureHandler((httpServletRequest, httpServletResponse, e) -> {
+                    System.out.println("exception : " + e.getMessage());
+                    httpServletResponse.sendRedirect("/login");
+                })
+                .permitAll(); // loginPage에는 누구나 접근가능하게 만듦
     }
 }
