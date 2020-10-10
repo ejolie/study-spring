@@ -1,6 +1,5 @@
 package io.security.basicsecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,8 +12,11 @@ import javax.servlet.http.HttpSession;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -60,8 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .rememberMe()
                 .rememberMeParameter("remember")
-                .tokenValiditySeconds(3600);
+                .tokenValiditySeconds(3600)
 //                .alwaysRemember(true)
-//                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService);
     }
 }
