@@ -99,6 +99,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 세션 고정 보호
                 .sessionFixation().changeSessionId();
 
+        // CSRF
+        http
+                .csrf();
+
         // 3. 예외 처리
         http
                 .exceptionHandling()
@@ -108,5 +112,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.sendRedirect("/denied");
                 });
+
     }
 }
