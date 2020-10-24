@@ -12,8 +12,8 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 import javax.servlet.http.HttpSession;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -115,3 +115,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 }
+
