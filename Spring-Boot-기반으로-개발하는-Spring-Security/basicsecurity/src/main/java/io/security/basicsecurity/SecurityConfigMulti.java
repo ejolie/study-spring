@@ -7,9 +7,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@Order(0)
-@Configuration
-@EnableWebSecurity
+//@Order(0)
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfigMulti extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -21,7 +21,7 @@ public class SecurityConfigMulti extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic();
 
-        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+        // SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
 }
 
