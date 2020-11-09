@@ -2,7 +2,7 @@ package com.ejolie.corespringsecurity.security.service;
 
 import com.ejolie.corespringsecurity.domain.Account;
 import com.ejolie.corespringsecurity.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private static UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

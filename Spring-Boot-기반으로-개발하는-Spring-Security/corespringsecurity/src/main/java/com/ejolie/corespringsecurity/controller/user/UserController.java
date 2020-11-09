@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-    private static PasswordEncoder passwordEncoder;
-    private static UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @GetMapping("/mypage")
     public String myPage() {
