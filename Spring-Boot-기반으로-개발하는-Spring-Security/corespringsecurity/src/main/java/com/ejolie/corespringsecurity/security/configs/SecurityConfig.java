@@ -35,19 +35,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-        // permitAll() 과 차이점: 보안 필터 자체를 거치지 않음, 보안 필터 범위 밖
+        // permitAll() 과 차이점
+        // - 보안 필터 자체를 거치지 않음, 보안 필터 범위 밖
+        // - static 리소스를 스프링 시큐리티에서 제외시킴
+        // - 직접 URL 경로로 접근 가능
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/users").permitAll()
+                .antMatchers("/", "/users", "/user/login/**").permitAll()
                 .antMatchers("/mypage").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/")
+                .permitAll();
     }
 }
