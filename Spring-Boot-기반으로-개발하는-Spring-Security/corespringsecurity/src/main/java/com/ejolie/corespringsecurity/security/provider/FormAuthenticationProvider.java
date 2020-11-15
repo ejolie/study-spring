@@ -1,23 +1,30 @@
 package com.ejolie.corespringsecurity.security.provider;
 
+import com.ejolie.corespringsecurity.security.common.FormWebAuthenticationDetails;
 import com.ejolie.corespringsecurity.security.service.AccountContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+import javax.transaction.Transactional;
+
+@Slf4j
+public class FormAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
@@ -29,9 +36,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Password doesn't match.");
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountContext.getAccount(), null, accountContext.getAuthorities());
+        FormWebAuthenticationDetails details = (FormWebAuthenticationDetails) authentication.getDetails();
+        String secretKey = details.getSecretKey();
+        if (secretKey == null || "secret".equals(secretKey)) {
+            throw new InsufficientAuthenticationException("Invalid secret key.");
+        }
 
-        return authenticationToken;
+        return new UsernamePasswordAuthenticationToken(accountContext.getAccount(), null, accountContext.getAuthorities());
     }
 
     @Override

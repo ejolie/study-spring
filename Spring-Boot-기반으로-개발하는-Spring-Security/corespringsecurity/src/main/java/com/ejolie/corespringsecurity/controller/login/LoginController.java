@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class Login {
+public class LoginController {
 
     @GetMapping("/login")
     public String login() {
