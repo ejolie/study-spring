@@ -1,4 +1,4 @@
-### Send POST request with json body
+### user 인증 성공
 POST http://localhost:8080/api/login
 Content-Type: application/json
 X-Requested-With: XMLHttpRequest
@@ -7,3 +7,18 @@ X-Requested-With: XMLHttpRequest
   "username": "user",
   "password": "1111"
 }
+
+### manager 인증 성공
+POST http://localhost:8080/api/login
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
+
+{
+  "username": "manager",
+  "password": "1111"
+}
+
+### 인가 확인 (user: 403, manages: 200, anonymous: 401)
+GET http://localhost:8080/api/messages
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
