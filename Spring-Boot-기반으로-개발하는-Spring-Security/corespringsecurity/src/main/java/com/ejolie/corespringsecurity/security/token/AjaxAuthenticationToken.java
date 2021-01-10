@@ -12,7 +12,7 @@ public class AjaxAuthenticationToken extends AbstractAuthenticationToken {
 
     // 인증 전
     public AjaxAuthenticationToken(Object principal, Object credentials) {
-        super((Collection)null);
+        super(null);
         this.principal = principal;
         this.credentials = credentials;
         this.setAuthenticated(false);

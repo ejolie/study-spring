@@ -1,6 +1,8 @@
 package com.ejolie.corespringsecurity.security.configs;
 
 import com.ejolie.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
+import com.ejolie.corespringsecurity.security.handler.AjaxAuthenticationFailureHandler;
+import com.ejolie.corespringsecurity.security.handler.AjaxAuthenticationSuccessHandler;
 import com.ejolie.corespringsecurity.security.provider.AjaxAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Order(0)
@@ -18,15 +22,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
-        AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter();
-        ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-        return ajaxLoginProcessingFilter;
+    public AjaxAuthenticationProvider ajaxAuthenticationProvider() {
+        return new AjaxAuthenticationProvider();
     }
 
     @Bean
-    public AjaxAuthenticationProvider ajaxAuthenticationProvider() {
-        return new AjaxAuthenticationProvider();
+    public AuthenticationSuccessHandler ajaxAuthenticationSuccessHandler() {
+        return new AjaxAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
+        return new AjaxAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
+        AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter();
+        ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
+        ajaxLoginProcessingFilter.setAuthenticationSuccessHandler(ajaxAuthenticationSuccessHandler());
+        ajaxLoginProcessingFilter.setAuthenticationFailureHandler(ajaxAuthenticationFailureHandler());
+
+        return ajaxLoginProcessingFilter;
     }
 
     @Override

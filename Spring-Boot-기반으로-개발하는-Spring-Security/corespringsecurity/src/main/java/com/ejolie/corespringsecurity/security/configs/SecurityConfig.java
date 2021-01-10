@@ -1,7 +1,7 @@
 package com.ejolie.corespringsecurity.security.configs;
 
 import com.ejolie.corespringsecurity.security.common.FormAuthenticationDetailsSource;
-import com.ejolie.corespringsecurity.security.handler.CustomAccessDeniedHandler;
+import com.ejolie.corespringsecurity.security.handler.FormAccessDeniedHandler;
 import com.ejolie.corespringsecurity.security.provider.FormAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -30,10 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private FormAuthenticationDetailsSource authenticationDetailSource;
 
     @Autowired
-    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private AuthenticationSuccessHandler formAuthenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationFailureHandler customAuthenticationFailureHandler;
+    private AuthenticationFailureHandler formAuthenticationFailureHandler;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        FormAccessDeniedHandler accessDeniedHandler = new FormAccessDeniedHandler();
         accessDeniedHandler.setErrorPage("/denied");
         return accessDeniedHandler;
     }
@@ -81,8 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login_proc")
                 .defaultSuccessUrl("/")
                 .authenticationDetailsSource(authenticationDetailSource)
-                .successHandler(customAuthenticationSuccessHandler)
-                .failureHandler(customAuthenticationFailureHandler)
+                .successHandler(formAuthenticationSuccessHandler)
+                .failureHandler(formAuthenticationFailureHandler)
                 .permitAll()
             .and()
                 .exceptionHandling()
