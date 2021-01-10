@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
                 .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler())
+                .accessDeniedHandler(accessDeniedHandler());
     }
 
 }
