@@ -79,7 +79,7 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .and()
 //                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.csrf().disable();
+//        http.csrf().disable();
 
         customConfigurerAjax(http);
     }
