@@ -13,7 +13,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 // Ajax Custom DSLs 구현
-public class AjaxLoginConfigurer <H extends HttpSecurityBuilder<H>> extends
+public final class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
         AbstractAuthenticationFilterConfigurer<H, AjaxLoginConfigurer<H>, AjaxLoginProcessingFilter> {
 
     private AuthenticationSuccessHandler successHandler;
@@ -30,27 +30,31 @@ public class AjaxLoginConfigurer <H extends HttpSecurityBuilder<H>> extends
     }
 
     @Override
-    public void configure(H http) throws Exception {
-        if (authenticationManager == null) {
+    public void configure(H http) {
+
+        if(authenticationManager == null){
             authenticationManager = http.getSharedObject(AuthenticationManager.class);
         }
-
         getAuthenticationFilter().setAuthenticationManager(authenticationManager);
         getAuthenticationFilter().setAuthenticationSuccessHandler(successHandler);
         getAuthenticationFilter().setAuthenticationFailureHandler(failureHandler);
 
-        SessionAuthenticationStrategy sessionAuthenticationStrategy = http.getSharedObject(SessionAuthenticationStrategy.class);
+        SessionAuthenticationStrategy sessionAuthenticationStrategy = http
+                .getSharedObject(SessionAuthenticationStrategy.class);
         if (sessionAuthenticationStrategy != null) {
             getAuthenticationFilter().setSessionAuthenticationStrategy(sessionAuthenticationStrategy);
         }
-
-        RememberMeServices rememberMeServices = http.getSharedObject(RememberMeServices.class);
+        RememberMeServices rememberMeServices = http
+                .getSharedObject(RememberMeServices.class);
         if (rememberMeServices != null) {
             getAuthenticationFilter().setRememberMeServices(rememberMeServices);
         }
-
-        http.setSharedObject(AjaxLoginProcessingFilter.class, getAuthenticationFilter());
+        http.setSharedObject(AjaxLoginProcessingFilter.class,getAuthenticationFilter());
         http.addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    public AjaxLoginConfigurer<H> loginPage(String loginPage) {
+        return super.loginPage(loginPage);
     }
 
     public AjaxLoginConfigurer<H> successHandlerAjax(AuthenticationSuccessHandler successHandler) {
@@ -58,12 +62,12 @@ public class AjaxLoginConfigurer <H extends HttpSecurityBuilder<H>> extends
         return this;
     }
 
-    public AjaxLoginConfigurer<H> failureHandlerAjax(AuthenticationFailureHandler failureHandler) {
-        this.failureHandler = failureHandler;
+    public AjaxLoginConfigurer<H> failureHandlerAjax(AuthenticationFailureHandler authenticationFailureHandler) {
+        this.failureHandler = authenticationFailureHandler;
         return this;
     }
 
-    public AjaxLoginConfigurer<H> setAuthenticationManger(AuthenticationManager authenticationManager) {
+    public AjaxLoginConfigurer<H> setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
         return this;
     }
@@ -72,4 +76,5 @@ public class AjaxLoginConfigurer <H extends HttpSecurityBuilder<H>> extends
     protected RequestMatcher createLoginProcessingUrlMatcher(String loginProcessingUrl) {
         return new AntPathRequestMatcher(loginProcessingUrl, "POST");
     }
+
 }

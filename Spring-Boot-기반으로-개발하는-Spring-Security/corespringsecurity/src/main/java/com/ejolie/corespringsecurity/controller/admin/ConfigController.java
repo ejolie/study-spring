@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ConfigController {
 
     @GetMapping("/config")
-    public String config() {
+    public String config(){
         return "admin/config";
     }
 }

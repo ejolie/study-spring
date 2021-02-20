@@ -1,21 +1,18 @@
 package com.ejolie.corespringsecurity.security.service;
 
-import com.ejolie.corespringsecurity.domain.Account;
+import com.ejolie.corespringsecurity.domain.entiry.Account;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.Collection;
+import java.util.List;
 
+@Data
 public class AccountContext extends User {
+    private Account account;
 
-    private final Account account;
-
-    public AccountContext(Account account, Collection<? extends GrantedAuthority> authorities) {
-        super(account.getUsername(), account.getPassword(), authorities);
+    public AccountContext(Account account, List<GrantedAuthority> roles) {
+        super(account.getUsername(), account.getPassword(), roles);
         this.account = account;
-    }
-
-    public Account getAccount() {
-        return account;
     }
 }

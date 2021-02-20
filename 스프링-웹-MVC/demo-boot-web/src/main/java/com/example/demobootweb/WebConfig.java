@@ -30,15 +30,15 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(-1);
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/mobile/**")
-                .addResourceLocations("classpath:/mobile/", "file:/Users/keesun/files/")
-                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/mobile/**")
+//                .addResourceLocations("classpath:/mobile/", "file:/Users/keesun/files/")
+//                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
+//    }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/hi").setViewName("hi");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/hi").setViewName("hi");
+//    }
 }
