@@ -13,9 +13,3 @@
 4. 김영한 - 실전 스프링 부트와 JPA 활용1
 
 5. 김영한 - 실전 스프링 부트와 JPA 활용2
-
-### 유튜브
-
-1. Agile intelligence
-
-2. Java brains
