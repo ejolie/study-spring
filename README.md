@@ -1,4 +1,4 @@
-# spring-boot-practice
+# study-spring-boot
 
 스프링 부트를 공부하며 실습한 내용을 정리해놓은 저장소입니다.
 
