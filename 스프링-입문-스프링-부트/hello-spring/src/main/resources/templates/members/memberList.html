@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member List</title>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>이름</th> </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${members}">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.name}"></td>
+                    <!-- 자바 프로퍼티 접근 방식: getter 있어야 함 -->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- /container -->
+</body>
+</html>
