@@ -20,7 +20,6 @@
 #### 스프링 시큐리티
 
 - 백기선 - [스프링 시큐리티](스프링-시큐리티)
-
 - 정수원 - [Spring Boot 기반으로 개발하는 Spring Security](Spring-Boot-기반으로-개발하는-Spring-Security)
 
 
